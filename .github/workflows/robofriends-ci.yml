@@ -3,10 +3,6 @@
 
 name: Robofriends CI
 
-defaults:
-  run:
-    shell: bash
-    working-directory: ./robofriends
 on:
   push:
     branches: [ main ]
@@ -33,7 +29,10 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+        cache-dependency-path: ./robofriends/package-lock.json
         cache: 'npm'
     - run: npm ci
+      working-directory: ./robofriends
     - run: npm run build --if-present
+      working-directory: ./robofriends
     #- run: npm test
