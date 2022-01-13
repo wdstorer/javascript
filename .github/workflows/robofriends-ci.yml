@@ -3,6 +3,10 @@
 
 name: Robofriends CI
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./robofriends
 on:
   push:
     branches: [ main ]
@@ -15,11 +19,7 @@ on:
 
 jobs:
   build:
-    defaults:
-      run:
-        shell: bash
-        working-directory: robofriends
-
+  
     runs-on: ubuntu-latest
 
     strategy:
