@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Robofriends Deployment
 
 defaults:
   run:
@@ -11,8 +11,6 @@ on:
     branches: [ main ]
 
 jobs:
-  env:
-    CONTAINER_IMAGE_NAME: robofriends
   build-webpack:
   
     runs-on: ubuntu-latest
@@ -34,11 +32,6 @@ jobs:
     - run: npm run build --if-present
     #- run: npm test
     
-  build-container:
-
-    runs-on: ubuntu-latest
-
-    steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag robofriends:$(date +%s)
