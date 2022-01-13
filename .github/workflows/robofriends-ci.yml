@@ -3,6 +3,11 @@
 
 name: Robofriends CI
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./robofriends
+    
 on:
   push:
     branches: [ main ]
@@ -32,7 +37,5 @@ jobs:
         cache-dependency-path: ./robofriends/package-lock.json
         cache: 'npm'
     - run: npm ci
-      working-directory: ./robofriends
     - run: npm run build --if-present
-      working-directory: ./robofriends
     #- run: npm test
