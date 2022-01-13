@@ -1,0 +1,44 @@
+name: Docker Image CI
+
+defaults:
+  run:
+    working-directory: ./robofriends
+    
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  env:
+    CONTAINER_IMAGE_NAME: robofriends
+  build-webpack:
+  
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache-dependency-path: ./robofriends/package-lock.json
+        cache: 'npm'
+    #- run: npm ci
+    - run: npm run build --if-present
+    #- run: npm test
+    
+  build-container:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag robofriends:$(date +%s)
