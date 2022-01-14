@@ -27,7 +27,12 @@ jobs:
             sudo apt-get install -y nodejs && \
             node -v
             pwd
-      - run: npm ci
+      - run: 
+          name: npm install
+          command: |
+            pwd
+            ls
+            npm ci
       - run: npm build
 
 # Invoke jobs via workflows
