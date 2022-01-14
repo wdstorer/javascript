@@ -17,7 +17,13 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-      - run: echo hostname
+      - run: hostname
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update \
+            sudo apt-get install -y nodejs && \
+            node -v
       - run: npm ci
       - run: npm build
 
