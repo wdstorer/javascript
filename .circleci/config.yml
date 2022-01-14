@@ -5,7 +5,7 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
+  deploy-robofriends:
     machine: true
     resource_class: wdstorer-namespace/wdstorer-resource-class
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -15,11 +15,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-      - run: hostname
-      - run:
-          name: Install dependencies
+          name: Setup build environment
           command: |
             curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
             sudo apt-get update && \
@@ -27,18 +23,14 @@ jobs:
             node -v
             pwd
       - run: 
-          name: npm install
+          name: build and deploy app
           command: |
-            pwd
-            ls
-            cd robofriends
-            ls
             npm ci
             npm run build-and-deploy
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  deploy-workflow:
     jobs:
-      - say-hello
+      - deploy-robofriends
