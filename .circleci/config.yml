@@ -34,7 +34,7 @@ jobs:
             cd robofriends
             ls
             npm ci
-      - run: npm run build-and-deploy
+            npm run build-and-deploy
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
