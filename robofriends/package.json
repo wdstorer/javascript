@@ -4,7 +4,8 @@
   "private": true,
   "config": {
     "imageName": "robofriends",
-    "registry": "registry.tr0:31320"
+    "registry": "registry.tr0:31320",
+    "k8sNamespace": "default"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
@@ -23,7 +24,7 @@
     "eject": "react-scripts eject",
     "docker-build": "docker build -t ${npm_package_config_registry}/${npm_package_config_imageName}:${npm_package_version} .",
     "docker-push": "docker push ${npm_package_config_registry}/${npm_package_config_imageName}:${npm_package_version}",
-    "deploy": "kubectl set image deployment ${npm_package_config_imageName} ${npm_package_config_imageName}=${npm_package_config_registry}/${npm_package_config_imageName}:${npm_package_version}",
+    "deploy": "kubectl set image deployment ${npm_package_config_imageName} ${npm_package_config_imageName}=${npm_package_config_registry}/${npm_package_config_imageName}:${npm_package_version} -n ${npm_package_config_k8sNamespace}",
     "build-and-deploy": "npm run -s build && npm run -s docker-build && npm run -s docker-push && npm run -s deploy"
   },
   "eslintConfig": {
